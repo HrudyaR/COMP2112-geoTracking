@@ -26,7 +26,7 @@ async function tracking(lat, long) {
 
   //remove current marker
   currentPos = map.getCenter();
-  var layer = L.marker([currentPos.latitude, currentPos.longitude]);
+  var layer = L.marker([currentPos.latitude, currentPos.longitude]).addTo(map);
   layer.remove();
 
   //add new marker
