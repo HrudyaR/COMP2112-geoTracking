@@ -15,6 +15,9 @@ async function tracking(lat, long) {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
+  currentPos = map.getCenter();
+  map.removeLayer(L.marker(currentPos.lat, currentPos.lng));
+  console.log(currentPos);
   L.marker([data.latitude, data.longitude])
     .addTo(map)
     .bindPopup("3225 Ridgeleigh Heights, Mississauga")
