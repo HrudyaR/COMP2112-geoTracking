@@ -11,8 +11,12 @@ async function tracking(lat, long) {
     `https://sharp-boyd-41e0d7.netlify.app/.netlify/functions/position?latitude=${latitude}&longitude=${longitude}`
   );
   const data = await response.json();
+
+  //Display the positions
   latElem.textContent = latitude;
   longElem.textContent = longitude;
+
+  //set the map view
   map.setView([data.latitude, data.longitude], 25);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -20,9 +24,12 @@ async function tracking(lat, long) {
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
+  //remove current marker
   currentPos = map.getCenter();
-  map.removeLayer(L.marker(currentPos.lat, currentPos.lng));
-  console.log(currentPos);
+  var layer = L.marker([currentPos.latitude, currentPos.longitude]);
+  layer.remove();
+
+  //add new marker
   L.marker([data.latitude, data.longitude])
     .addTo(map)
     .bindPopup("3225 Ridgeleigh Heights, Mississauga")
@@ -31,7 +38,10 @@ async function tracking(lat, long) {
 
 function success(pos) {
   var crd = pos.coords;
+
+  //call the method to update positions and map view
   tracking(crd.latitude, crd.longitude);
+
   if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
     console.log("Congratulations, you reached the target");
     navigator.geolocation.clearWatch(id);
