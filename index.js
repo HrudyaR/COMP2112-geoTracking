@@ -17,17 +17,13 @@ async function tracking(lat, long) {
   longElem.textContent = longitude;
 
   //set the map view
-  map.setView([data.latitude, data.longitude], 25);
+  map.remove();
+  map = L.map("mapid").setView([data.latitude, data.longitude], 25);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
-
-  //remove current marker
-  currentPos = map.getCenter();
-  var layer = L.marker([currentPos.latitude, currentPos.longitude]).addTo(map);
-  layer.remove();
 
   //add new marker
   L.marker([data.latitude, data.longitude])
