@@ -8,7 +8,7 @@ async function tracking(lat, long) {
     `https://sharp-boyd-41e0d7.netlify.app/.netlify/functions/position?latitude=${latitude}&longitude=${longitude}`
   );
   const data = await response.json();
-  map.setView([data.latitude, data.longitude], 13);
+  map.setView([data.latitude, data.longitude], 25);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution:
