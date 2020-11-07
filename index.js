@@ -1,3 +1,6 @@
+const latElem = document.querySelector("#latitude");
+const longElem = document.querySelector("#longitude");
+
 var id, target, options;
 var map = L.map("mapid");
 
@@ -8,6 +11,8 @@ async function tracking(lat, long) {
     `https://sharp-boyd-41e0d7.netlify.app/.netlify/functions/position?latitude=${latitude}&longitude=${longitude}`
   );
   const data = await response.json();
+  latElem.textContent = latitude;
+  longElem.textContent = longitude;
   map.setView([data.latitude, data.longitude], 25);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
